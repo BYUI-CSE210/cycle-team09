@@ -27,6 +27,7 @@ class HandleCollisionsAction(Action):
         if not self._is_game_over:
         
             self._handle_segment_collision(cast)
+            self.handle_snakes_collition(cast)
             self._handle_game_over(cast)
 
     def _handle_segment_collision(self, cast):
@@ -35,14 +36,52 @@ class HandleCollisionsAction(Action):
         Args:
             cast (Cast): The cast of Actors in the game.
         """
+        """P1"""
         snake = cast.get_first_actor("snakes")
         head = snake.get_segments()[0]
         segments = snake.get_segments()[1:]
         
+        """P2"""
+        snake_p2 = cast.get_first_actor("snakes")
+        head_p2 = snake_p2.get_segments()[0]
+        segments_p2 = snake_p2.get_segments()[1:]
+
         for segment in segments:
             if head.get_position().equals(segment.get_position()):
                 self._is_game_over = True
+        for segment in segments_p2:
+            if head_p2.get_position().equals(segment.get_position()):
+                self._is_game_over = True
+
+    def handle_snakes_collition(self, cast):
+        """Sets the game over flag if the snake collides with a segment of the other snake 
+        or with the head of the other snake
         
+        Args:
+            cast (Cast): The cast of Actors in the game.
+        """
+        snake = cast.get_first_actor("snakes")
+        head = snake.get_segments()[0]
+        segments = snake.get_segments()[1:]
+        
+        """P2"""
+        snake_p2 = cast.get_first_actor("snakes")
+        head_p2 = snake_p2.get_segments()[0]
+        segments_p2 = snake_p2.get_segments()[1:]
+
+        for segment in segments_p2:
+            if head.get_position().equals(segment.get_position()):
+                self._is_game_over = True
+        for segment in segments:
+            if head_p2.get_position().equals(segment.get_position()):
+                self._is_game_over = True
+        
+        
+        if head.get_position().equals(head_p2.get_position()):
+                self._is_game_over = True   
+        
+
+
     def _handle_game_over(self, cast):
         """Shows the 'game over' message and turns the snakes  white if the game is over.
         
