@@ -1,74 +1,77 @@
 import constants
-from game.scripting.action import Action
 from game.casting.actor import Actor
 from game.shared.point import Point
 
-
-class Player2(Action):
+class Player2(Actor):
     """
-    A long limbless reptile.
-    
-    The responsibility of Snake is to move itself.
+    A player that leaves a trail behind it.
+
+    The responsibility of player 1 is to move itself.
 
     Attributes:
-        _points (int): The number of points the food is worth.
+        _trail (list): The number of points the food is worth.
     """
+
     def __init__(self):
+        """construct a new instace of the player 1"""
+        
         super().__init__()
-        self._segments = []
-        self._prepare_body()
-
-    def get_segments(self):
-        return self._segments
-
-    def move_next(self):
-        # move all segments
-        
-        for segment in self._segments:
-            segment.move_next()
-            
-        # update velocities
-        for i in range(len(self._segments) - 1, 0, -1):
-            trailing = self._segments[i]
-            previous = self._segments[i - 1]
-            velocity = previous.get_velocity()
-            trailing.set_velocity(velocity)
-
-    def get_head(self):
-        return self._segments[0]
+        self._trail = []
+        self._prepare_player()
     
-    def grow_tail(self, number_of_segments):
+    def get_trail(self):
+        """returns the trail created by the player 1"""
+
+        return self._trail
+
+    def get_player(self):
+        """gets the player or the first element in the trail list"""
+
+        return self._trail[0]
+
+    def turn_player(self, velocity):
+        """moves the player to the velocity passed
         
-        for i in range(number_of_segments):
-            tail = self._segments[-1]
-            velocity = tail.get_velocity()
-            offset = velocity.reverse()
-            position = tail.get_position().add(offset)
-            
-            segment = Actor()
-            segment.set_position(position)
-            segment.set_velocity(velocity)
-            segment.set_text("#")
-            segment.set_color(constants.YELLOW)
-            segment.append(segment)
+        Args: 
+            Velocity (int): new velocity to move the player to
+        """
 
-
-    def turn_head(self, velocity):
-        self._segments[0].set_velocity(velocity)
+        self._trail[0].set_velocity(velocity)
     
-    def _prepare_body(self):
-        x = int(constants.MAX_X / 2)
+    def _prepare_player(self):
+        """Prepares the player and the initial trail to be drawn"""
+
+        x = int((constants.MAX_X / 2) + ((constants.MAX_X / 2) / 2))
         y = int(constants.MAX_Y / 2)
 
-        for i in range(constants.PLAYER_LENGTH):
+        for i in range(constants.TRAIL_LENGTH):
             position = Point(x - i * constants.CELL_SIZE, y)
-            velocity = Point(1 * constants.CELL_SIZE, 0)
-            text = "8" if i == 0 else "#"
-            color = constants.RED if i == 0 else constants.WHITE
-            
-            segment = Actor()
-            segment.set_position(position)
-            segment.set_velocity(velocity)
-            segment.set_text(text)
-            segment.set_color(color)
-            self._segments.append(segment)
+            velocity = Point(constants.CELL_SIZE, 0)
+            text = "@" if i == 0 else "#"
+            color = constants.RED
+
+            trail = Actor()
+            trail.set_position(position)
+            trail.set_velocity(velocity)
+            trail.set_text(text)
+            trail.set_color(color)
+            self._trail.append(trail)
+    
+    def move_next(self):
+        """moves the player"""
+
+        self._trail[0].move_next()
+    
+    def grow_trail(self):
+        """grows the trail of the player"""
+
+        player = self._trail[0]
+        velocity = player.get_velocity()
+        position = player.get_position()
+
+        trail = Actor()
+        trail.set_position(position)
+        trail.set_velocity(velocity)
+        trail.set_text("#")
+        trail.set_color(constants.RED)
+        self._trail.append(trail)
