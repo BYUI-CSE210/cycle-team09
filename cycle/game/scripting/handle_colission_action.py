@@ -42,7 +42,8 @@ class HandleCollisionsAction(Action):
         segments = snake.get_segments()[1:]
         
         """P2"""
-        snake_p2 = cast.get_first_actor("snakes")
+        snake = cast.get_first_actor("snakes")
+        snake_p2 = snake[1]
         head_p2 = snake_p2.get_segments()[0]
         segments_p2 = snake_p2.get_segments()[1:]
 
@@ -65,7 +66,8 @@ class HandleCollisionsAction(Action):
         segments = snake.get_segments()[1:]
         
         """P2"""
-        snake_p2 = cast.get_first_actor("snakes")
+        snake = cast.get_first_actor("snakes")
+        snake_p2 = snake[1]
         head_p2 = snake_p2.get_segments()[0]
         segments_p2 = snake_p2.get_segments()[1:]
 
