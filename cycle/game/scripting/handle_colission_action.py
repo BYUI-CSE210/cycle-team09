@@ -37,19 +37,20 @@ class HandleCollisionsAction(Action):
             cast (Cast): The cast of Actors in the game.
         """
         """P1"""
-        snake = cast.get_first_actor("snakes")
-        head = snake.get_segments()[0]
-        segments = snake.get_segments()[1:]
-        
-        """P2"""
-        snake_p2 = cast.get_first_actor("snakes")
-        player2 = snake_p2[1]
-        head_p2 = player2.get_segments()[1]
+        player = cast.get_first_actor("snakes")
+        player1 = player[0]
+        player2 = player[1]
+        head_p1 = player1.get_segments()[0]
+        head_p2 = player2.get_segments()[0]
+        segments_p1 = player.get_segments()[1:]
         segments_p2 = player2.get_segments()[1:]
+       
+        
 
-        for segment in segments:
-            if head.get_position().equals(segment.get_position()):
+        for segment in segments_p1:
+            if head_p1.get_position().equals(segment.get_position()):
                 self._is_game_over = True
+
         for segment in segments_p2:
             if head_p2.get_position().equals(segment.get_position()):
                 self._is_game_over = True
@@ -61,25 +62,24 @@ class HandleCollisionsAction(Action):
         Args:
             cast (Cast): The cast of Actors in the game.
         """
-        snake = cast.get_first_actor("snakes")
-        head = snake.get_segments()[0]
-        segments = snake.get_segments()[1:]
-        
-        """P2"""
-        snake_p2 = cast.get_first_actor("snakes")
-        player2 = snake_p2[1]
+        player = cast.get_first_actor("snakes")
+        player1 = player[0]
+        player2 = player[1]
+        head_p1 = player1.get_segments()[0]
         head_p2 = player2.get_segments()[0]
+        segments_p1 = player1.get_segments()[1:]
         segments_p2 = player2.get_segments()[1:]
 
         for segment in segments_p2:
-            if head.get_position().equals(segment.get_position()):
+            if head_p1.get_position().equals(segment.get_position()):
                 self._is_game_over = True
-        for segment in segments:
+                
+        for segment in segments_p1:
             if head_p2.get_position().equals(segment.get_position()):
                 self._is_game_over = True
         
         
-        if head.get_position().equals(head_p2.get_position()):
+        if head_p1.get_position().equals(head_p2.get_position()):
                 self._is_game_over = True   
         
 
@@ -91,11 +91,10 @@ class HandleCollisionsAction(Action):
             cast (Cast): The cast of Actors in the game.
         """
         if self._is_game_over:
-            snake = cast.get_first_actor("snakes")
-            segments = snake.get_segments()
-
-            snake_p2  = cast.get_first_actor("snakes")
-            player2 = snake_p2[1]
+            player = cast.get_first_actor("snakes")
+            player1 = player[0]
+            player2 = player[1]
+            segments_p1 = player1.get_segments()
             segments_p2 = player2.get_segments()
 
             x = int(constants.MAX_X / 2)
@@ -107,7 +106,7 @@ class HandleCollisionsAction(Action):
             message.set_position(position)
             cast.add_actor("messages", message)
 
-            for segment in segments:
+            for segment in segments_p1:
                 segment.set_color(constants.WHITE)
 
             for segment in segments_p2:
