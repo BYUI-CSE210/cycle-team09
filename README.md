@@ -12,3 +12,8 @@ If a player collides with their opponent's trail...
    - A "game over" message is displayed in the middle of the screen.
    - The cycles turn white.
    - Players keep moving and turning but don't run into each other.
+
+Team Members: 
+-   Renzo Cardoza
+-   Valentina Bass
+-   Pablo Santos
