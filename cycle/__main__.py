@@ -1,9 +1,12 @@
 import constants
 
 from game.casting.cast import Cast
+from game.casting.player1 import Player1
+from game.casting.player2 import Player2
 from game.scripting.script import Script
 from game.scripting.control_actors_action import ControlActorsAction
 from game.scripting.move_actors_action import MoveActorsAction
+
 from game.scripting.handle_collisions_action import HandleCollisionsAction
 from game.scripting.draw_actors_action import DrawActorsAction
 from game.directing.director import Director
@@ -17,6 +20,8 @@ def main():
 
     # create the cast
     cast = Cast()
+    cast.add_actor("player1", Player1())
+    cast.add_actor("player2",Player2())
 
     # start the game
     keyboard_service = KeyboardService()
