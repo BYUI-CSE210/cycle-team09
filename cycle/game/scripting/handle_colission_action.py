@@ -42,10 +42,10 @@ class HandleCollisionsAction(Action):
         segments = snake.get_segments()[1:]
         
         """P2"""
-        snake = cast.get_first_actor("snakes")
-        snake_p2 = snake[1]
-        head_p2 = snake_p2.get_segments()[0]
-        segments_p2 = snake_p2.get_segments()[1:]
+        snake_p2 = cast.get_first_actor("snakes")
+        player2 = snake_p2[1]
+        head_p2 = player2.get_segments()[1]
+        segments_p2 = player2.get_segments()[1:]
 
         for segment in segments:
             if head.get_position().equals(segment.get_position()):
@@ -66,10 +66,10 @@ class HandleCollisionsAction(Action):
         segments = snake.get_segments()[1:]
         
         """P2"""
-        snake = cast.get_first_actor("snakes")
-        snake_p2 = snake[1]
-        head_p2 = snake_p2.get_segments()[0]
-        segments_p2 = snake_p2.get_segments()[1:]
+        snake_p2 = cast.get_first_actor("snakes")
+        player2 = snake_p2[1]
+        head_p2 = player2.get_segments()[0]
+        segments_p2 = player2.get_segments()[1:]
 
         for segment in segments_p2:
             if head.get_position().equals(segment.get_position()):
@@ -93,7 +93,10 @@ class HandleCollisionsAction(Action):
         if self._is_game_over:
             snake = cast.get_first_actor("snakes")
             segments = snake.get_segments()
-  
+
+            snake_p2  = cast.get_first_actor("snakes")
+            player2 = snake_p2[1]
+            segments_p2 = player2.get_segments()
 
             x = int(constants.MAX_X / 2)
             y = int(constants.MAX_Y / 2)
@@ -106,4 +109,6 @@ class HandleCollisionsAction(Action):
 
             for segment in segments:
                 segment.set_color(constants.WHITE)
-      
+
+            for segment in segments_p2:
+                segment.set_color(constants.WHITE)
