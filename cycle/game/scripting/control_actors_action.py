@@ -1,3 +1,4 @@
+
 import constants
 from game.scripting.action import Action
 from game.shared.point import Point
@@ -69,3 +70,4 @@ class ControlActorsAction(Action):
 
         player2 = cast.get_first_actor("player2")
         player2.turn_head(self._direction2)
+
