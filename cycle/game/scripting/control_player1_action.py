@@ -1,8 +1,7 @@
 import constants
 from game.scripting.action import Action
 from game.shared.point import Point
-from game.casting.player_1 import Player1
-from game.casting.p1_score import P1Score
+
 
 class ControlPlayer1Action(Action):
     """
