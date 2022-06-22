@@ -17,12 +17,14 @@ class Player2(Actor):
         
         super().__init__()
         self._trail = []
+        self.player_color = constants.RED
+        self._is_game_over = False
         self._prepare_player()
     
     def get_trail(self):
         """returns the trail created by the player 1"""
 
-        return self._trail
+        return self._trail[1:]
 
     def get_player(self):
         """gets the player or the first element in the trail list"""
@@ -48,13 +50,12 @@ class Player2(Actor):
             position = Point(x - i * constants.CELL_SIZE, y)
             velocity = Point(constants.CELL_SIZE, 0)
             text = "@" if i == 0 else "#"
-            color = constants.RED
 
             trail = Actor()
             trail.set_position(position)
             trail.set_velocity(velocity)
             trail.set_text(text)
-            trail.set_color(color)
+            trail.set_color(self.player_color)
             self._trail.append(trail)
     
     def move_next(self):
@@ -73,5 +74,6 @@ class Player2(Actor):
         trail.set_position(position)
         trail.set_velocity(velocity)
         trail.set_text("#")
-        trail.set_color(constants.RED)
+        trail.set_color(self.player_color)
         self._trail.append(trail)
+        

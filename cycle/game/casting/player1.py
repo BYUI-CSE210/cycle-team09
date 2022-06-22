@@ -17,12 +17,13 @@ class Player1(Actor):
         
         super().__init__()
         self._trail = []
+        self.player_color = constants.GREEN
         self._prepare_player()
     
     def get_trail(self):
         """returns the trail created by the player 1"""
 
-        return self._trail
+        return self._trail[1:]
 
     def get_player(self):
         """gets the player or the first element in the trail list"""
@@ -37,10 +38,11 @@ class Player1(Actor):
         """
 
         self._trail[0].set_velocity(velocity)
-        self._trail[0].move_next()
+        # self._trail[0].move_next()
     
     def _prepare_player(self):
-        """Prepares the player and the initial trail to be drawn"""   
+        """Prepares the player and the initial trail to be drawn"""
+
         x = int(constants.MAX_X / 4)
         y = int(constants.MAX_Y / 2)
 
@@ -48,19 +50,18 @@ class Player1(Actor):
             position = Point(x - i * constants.CELL_SIZE, y)
             velocity = Point(constants.CELL_SIZE, 0)
             text = "@" if i == 0 else "#"
-            color = constants.GREEN
 
             trail = Actor()
             trail.set_position(position)
             trail.set_velocity(velocity)
             trail.set_text(text)
-            trail.set_color(color)
+            trail.set_color(self.player_color)
             self._trail.append(trail)
     
-    # def move_next(self):
-    #     """moves the player"""
+    def move_next(self):
+        """moves the player"""
 
-    #     self._trail[0].move_next()
+        self._trail[0].move_next()
     
     def grow_trail(self):
         """grows the trail of the player"""
@@ -68,13 +69,11 @@ class Player1(Actor):
         player = self._trail[0]
         velocity = player.get_velocity()
         offset = velocity.reverse()
-        position = player.get_position().add(offset)
+        position = player.get_position()
 
         trail = Actor()
         trail.set_position(position)
         trail.set_velocity(velocity)
         trail.set_text("#")
-        trail.set_color(constants.GREEN)
+        trail.set_color(self.player_color)
         self._trail.append(trail)
-        
-            

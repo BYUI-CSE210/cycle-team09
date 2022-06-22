@@ -1,4 +1,5 @@
 from game.scripting.action import Action
+
 class DrawActorsAction(Action):
     """
     An output action that draws all the actors.
@@ -23,14 +24,17 @@ class DrawActorsAction(Action):
         player2 = players[1]
         p1_trail = player1.get_trail()
         p2_trail = player2.get_trail()
+        
         scores = cast.get_actors("scores")
-
         p1_score = scores[0]
         p2_score = scores[1]
         
+        message = cast.get_actors("messages")
+
         self._video_service.clear_buffer()
         self._video_service.draw_actors(p1_trail)
         self._video_service.draw_actors(p2_trail)
         self._video_service.draw_actor(p1_score)
         self._video_service.draw_actor(p2_score)
+        self._video_service.draw_actors(message, True)
         self._video_service.flush_buffer()

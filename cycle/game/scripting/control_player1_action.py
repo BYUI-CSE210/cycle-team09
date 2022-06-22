@@ -1,14 +1,13 @@
-
 import constants
 from game.scripting.action import Action
 from game.shared.point import Point
+from game.scripting.handle_colission_action import HandleCollisionsAction
 
-
-class ControlActorsAction(Action):
+class ControlPlayer1Action(Action):
     """
-    An input action that controls the snake.
+    An input action that controls the player 1 movements.
     
-    The responsibility of ControlActorsAction is to get the direction and move the snake's head.
+    The responsibility of ControlActorsAction is to get the direction and move the player 1.
 
     Attributes:
         _keyboard_service (KeyboardService): An instance of KeyboardService.
@@ -20,9 +19,9 @@ class ControlActorsAction(Action):
         Args:
             keyboard_service (KeyboardService): An instance of KeyboardService.
         """
+
         self._keyboard_service = keyboard_service
         self._direction = Point(constants.CELL_SIZE, 0)
-        self._direction2 = Point(constants.CELL_SIZE, 0)
 
     def execute(self, cast, script):
         """Executes the control actors action.
@@ -31,6 +30,7 @@ class ControlActorsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
+
         # left
         if self._keyboard_service.is_key_down('a'):
             self._direction = Point(-constants.CELL_SIZE, 0)
@@ -47,27 +47,10 @@ class ControlActorsAction(Action):
         if self._keyboard_service.is_key_down('s'):
             self._direction = Point(0, constants.CELL_SIZE)
         
-        player1 = cast.get_first_actor("player1")
-        player1.turn_head(self._direction)
-
-        #PLayer 2 Moves        
-
-        # left
-        if self._keyboard_service.is_key_down('j'):
-            self._direction2 = Point(-constants.CELL_SIZE, 0)
+        player1 = cast.get_first_actor("players")
+        player1.turn_player(self._direction)
+        player1.grow_trail()
         
-        # right
-        if self._keyboard_service.is_key_down('l'):
-            self._direction2 = Point(constants.CELL_SIZE, 0)
-        
-        # up
-        if self._keyboard_service.is_key_down('i'):
-            self._direction2 = Point(0, -constants.CELL_SIZE)
-        
-        # down
-        if self._keyboard_service.is_key_down('k'):
-            self._direction2 = Point(0, constants.CELL_SIZE)
-
-        player2 = cast.get_first_actor("player2")
-        player2.turn_head(self._direction2)
-
+        score = cast.get_first_actor("scores")
+        points = 1
+        score.add_points(points)
