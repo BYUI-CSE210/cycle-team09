@@ -1,15 +1,15 @@
 import constants
 
 from game.casting.cast import Cast
-from game.casting.player_1 import Player1
-from game.casting.player_2 import Player2
+from game.casting.player1 import Player1
+from game.casting.player2 import Player2
 from game.casting.p1_score import P1Score
 from game.casting.p2_score import P2Score
 from game.scripting.script import Script
 from game.scripting.control_player1_action import ControlPlayer1Action
 from game.scripting.control_player2_action import ControlPlayer2Action
 from game.scripting.move_actors_action import MoveActorsAction
-from game.scripting.handle_collisions_action import HandleCollisionsAction
+from game.scripting.handle_colission_action import HandleCollisionsAction
 from game.scripting.draw_actors_action import DrawActorsAction
 from game.directing.director import Director
 from game.services.keyboard_service import KeyboardService
