@@ -38,7 +38,7 @@ class Player1(Actor):
         """
 
         self._trail[0].set_velocity(velocity)
-        self._trail[0].move_next()
+        # self._trail[0].move_next()
     
     def _prepare_player(self):
         """Prepares the player and the initial trail to be drawn"""
@@ -58,10 +58,10 @@ class Player1(Actor):
             trail.set_color(self.player_color)
             self._trail.append(trail)
     
-    # def move_next(self):
-    #     """moves the player"""
+    def move_next(self):
+        """moves the player"""
 
-    #     self._trail[0].move_next()
+        self._trail[0].move_next()
     
     def grow_trail(self):
         """grows the trail of the player"""
@@ -69,7 +69,7 @@ class Player1(Actor):
         player = self._trail[0]
         velocity = player.get_velocity()
         offset = velocity.reverse()
-        position = player.get_position().add(offset)
+        position = player.get_position()
 
         trail = Actor()
         trail.set_position(position)

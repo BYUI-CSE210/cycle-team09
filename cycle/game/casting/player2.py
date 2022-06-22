@@ -18,6 +18,7 @@ class Player2(Actor):
         super().__init__()
         self._trail = []
         self.player_color = constants.RED
+        self._is_game_over = False
         self._prepare_player()
     
     def get_trail(self):

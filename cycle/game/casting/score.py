@@ -1,6 +1,6 @@
 from game.casting.actor import Actor
 
-class P1Score(Actor):
+class Score(Actor):
     """
     A record of points made or lost. 
     
@@ -13,11 +13,13 @@ class P1Score(Actor):
         _points (int): The points earned in the game.
     """
 
-    def __init__(self):
+    def __init__(self, player):
         """creates new instance of the actor score"""
 
         super().__init__()
         self._points = 0
+        self._player = player
+        self._is_game_over = False
         self.add_points(0)
         
     def add_points(self, points):
@@ -27,5 +29,20 @@ class P1Score(Actor):
             points (int): The points earned after a colission
         """
 
-        self._points += points
-        self.set_text(f"P1 Score: {self._points}")
+        if not self._is_game_over:
+            self._points += points
+        
+        self.set_text(f"{self._player} Score: {self._points}")
+    
+    def set_game_over(self, game_over):
+        """Sets the game over value to true
+        
+        Args:
+            game_over (bool) = defines when the game is over"""
+
+        self._is_game_over = game_over
+    
+    def get_score(self):
+        """gets the value of the score"""
+
+        return self._points
