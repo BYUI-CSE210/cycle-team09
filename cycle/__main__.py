@@ -1,7 +1,7 @@
 import constants
 
 from game.casting.cast import Cast
-from game.casting.player1 import Player1
+from game.casting.player1 import Player1 
 from game.casting.player2 import Player2
 from game.casting.score import Score
 from game.scripting.script import Script
